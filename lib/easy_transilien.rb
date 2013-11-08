@@ -1,5 +1,7 @@
-require "./lib/easy_transilien/version.rb"
-require "./lib/easy_transilien/station.rb"
+require 'transilien_microservices'
+
+require "easy_transilien/version.rb"
+require "easy_transilien/station.rb"
 
 module EasyTransilien
 end
