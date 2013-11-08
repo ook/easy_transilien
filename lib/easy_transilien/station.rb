@@ -1,6 +1,6 @@
 module EasyTransilien
   class Station
-    attr_accessor :name, :external_code
+    attr_accessor :name, :external_code, :access_time
 
     class << self
       # Get all available `Transilien::StopArea`
@@ -21,6 +21,8 @@ module EasyTransilien
           item = new
           item.name = sa.name
           item.external_code = sa.external_code
+          item.access_time = sa.access_time
+          item
         end
       end
     end
