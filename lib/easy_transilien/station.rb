@@ -14,16 +14,25 @@ module EasyTransilien
         @all_stop_areas
       end
 
+      # Find a list of [Station] matching +criterium+.
+      # Valid keys:
+      # * String: will try to match +name+ or +external_code+. Both case unsensitive.
       def find(criterium)
-        regex = /#{criterium}/i
-        matching = all_stop_areas.reject { |sa| sa.name !~ regex }
-        matching.map do |sa|  
-          item = new
-          item.name = sa.name
-          item.external_code = sa.external_code
-          item.access_time = sa.access_time
-          item
+        stations = []
+        if criterium.is_a?(String)
+          regex = /#{criterium}/i
+          matching = all_stop_areas.reject { |sa| sa.name !~ regex && sa.external_code !~ regex }
+          stations = matching.map do |sa|  
+            item = new
+            item.name = sa.name
+            item.external_code = sa.external_code
+            item.access_time = sa.access_time
+            item
+          end
+        elsif criterium.is_a?(Station)
+          stations << criterium
         end
+        stations
       end
     end
   end
