@@ -14,9 +14,9 @@ module EasyTransilien
         @all_stop_areas
       end
 
-      # Find a list of [Station] matching +criterium+.
+      # Find a list of `Station` matching +criterium+.
       # Valid keys:
-      # * String: will try to match +name+ or +external_code+. Both case unsensitive.
+      # @param [String] criterium will try to match +name+ or +external_code+. Both case unsensitive.
       def find(criterium)
         stations = []
         if criterium.is_a?(String)

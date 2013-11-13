@@ -8,8 +8,9 @@ module EasyTransilien
   #
   # A trip is the EasyTransilien representation from Transilien::VehicleJourney
   class Trip
-    attr_accessor :from_station, :to_station, :access_time
+    attr_accessor :from_station, :to_station, :from_stop, :to_stop, :access_time
     attr_accessor :start_time, :arrival_time
+    attr_accessor :mission
     attr_accessor :journey
 
     class << self
@@ -35,8 +36,12 @@ module EasyTransilien
           item = new
           item.from_station  = from_station
           item.to_station    = to_station
+          item.from_stop     = nil
+          item.to_stop       = nil
           item.access_time   = journey.access_time
           item.journey       = journey
+          item.mission       = journey.name
+          raise journey.stops.first.stop_time.name.inspect
 
           trips << item
         end
