@@ -7,7 +7,6 @@ describe EasyTransilien::Station do
     col = EasyTransilien::Station.find('argenteuil')
     col.is_a?(Array).should be_true
     col.first.is_a?(EasyTransilien::Station).should be_true
-    puts col.inspect
     col.length.should eql(2)
   end
 end

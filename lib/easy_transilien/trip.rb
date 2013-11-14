@@ -13,6 +13,9 @@ module EasyTransilien
     attr_accessor :mission
     attr_accessor :journey
 
+    attr_accessor :at
+    attr_accessor :stops
+
     class << self
       
       # Find 
@@ -22,7 +25,7 @@ module EasyTransilien
         raise "last params MUST be a valid Time instance. Given: #{last.inspect}" unless last.is_a?(Time)
 
         from_station = Station.find(from).first
-        to_station = Station.find(to).first
+        to_station   = Station.find(to).first
 
         raise "Can't find a Station from #{from.inspect}" unless from_station
         raise "Can't find a Station from #{to.inspect}"   unless to_station
@@ -34,20 +37,26 @@ module EasyTransilien
 
         journeys.each do |journey|
           item = new
+          item.at            = at
           item.from_station  = from_station
           item.to_station    = to_station
-          item.from_stop     = nil
-          item.to_stop       = nil
+          item.stops         = journey.stops
+          item.from_stop     = item.stops.select { |ts| ts.stop_point.external_code == from_station.external_code }.first
+          item.to_stop       = item.stops.select { |ts| ts.stop_point.external_code == to_station.external_code }.first
           item.access_time   = journey.access_time
           item.journey       = journey
           item.mission       = journey.name
-          raise journey.stops.first.stop_time.name.inspect
 
           trips << item
+
         end
         trips
       end
 
+    end
+
+    def initialize
+      @stops = []
     end
 
     def external_code
@@ -60,6 +69,11 @@ module EasyTransilien
 
     def to_station_name
       to_station.name
+    end
+
+    def to_s
+      #"#{at.strftime('%Y%m%d')} #{mission} #{'%02d' % from_stop.stop_time.hour}:#{'%02d' % from_stop.stop_time.minute} -> #{to_stop ? "#{'%02d' % to_stop.stop_time.hour}:#{'%02d' % to_stop.stop_time.minute}" : '(no to_stop loaded)'}"
+      "#{mission} #{'%02d' % from_stop.stop_time.hour}:#{'%02d' % from_stop.stop_time.minute} -> #{to_stop ? "#{'%02d' % to_stop.stop_time.hour}:#{'%02d' % to_stop.stop_time.minute}" : '(no to_stop loaded)'}"
     end
 
   end
