@@ -43,6 +43,7 @@ module EasyTransilien
           item.stops         = journey.stops
           item.from_stop     = item.stops.select { |ts| ts.stop_point.external_code == from_station.external_code }.first
           item.to_stop       = item.stops.select { |ts| ts.stop_point.external_code == to_station.external_code }.first
+          next if item.from_stop.nil? || item.to_stop.nil? # drop item if this journey doesn't deserve our from_stop or to_stop
           item.access_time   = journey.access_time
           item.journey       = journey
           item.mission       = journey.name
@@ -53,10 +54,6 @@ module EasyTransilien
         trips
       end
 
-    end
-
-    def initialize
-      @stops = []
     end
 
     def external_code
@@ -73,7 +70,7 @@ module EasyTransilien
 
     def to_s
       #"#{at.strftime('%Y%m%d')} #{mission} #{'%02d' % from_stop.stop_time.hour}:#{'%02d' % from_stop.stop_time.minute} -> #{to_stop ? "#{'%02d' % to_stop.stop_time.hour}:#{'%02d' % to_stop.stop_time.minute}" : '(no to_stop loaded)'}"
-      "#{mission} #{'%02d' % from_stop.stop_time.hour}:#{'%02d' % from_stop.stop_time.minute} -> #{to_stop ? "#{'%02d' % to_stop.stop_time.hour}:#{'%02d' % to_stop.stop_time.minute}" : '(no to_stop loaded)'}"
+      "#{mission} #{}|#{'%02d' % from_stop.stop_time.hour}:#{'%02d' % from_stop.stop_time.minute} -> #{to_stop ? "#{'%02d' % to_stop.stop_time.hour}:#{'%02d' % to_stop.stop_time.minute}" : '(no to_stop loaded)'}"
     end
 
   end
