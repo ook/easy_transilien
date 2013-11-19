@@ -35,18 +35,26 @@ Or install it yourself as:
 require 'easy_transilien'
 
 stations = EasyTransilien::Station.find
-val_arg_station = EasyTransilien::Station.find('val d\'argenteuil')
-# => "#<EasyTransilien::Station>"
-val_arg_station = 
+val_arg_station = EasyTransilien::Station.find('val d\'argenteuil') # Access by name
+# => [#<EasyTransilien::Station:0x007fd23dc9b398 @access_time=2013-11-19 13:03:07 +0100, @external_code="DUA8738179", @name="VAL D'ARGENTEUIL">]
+val_arg_station = EasyTransilien::Station.find('val d\'arg') # Access by fragment
+# => [#<EasyTransilien::Station:0x007fd23dcab0f8 @access_time=2013-11-19 13:03:07 +0100, @external_code="DUA8738179", @name="VAL D'ARGENTEUIL">]
+val_arg_station = EasyTransilien::Station.find('DUA8738179') # Access by external_code
+# => [#<EasyTransilien::Station:0x007fd23dce0fb0 @access_time=2013-11-19 13:03:07 +0100, @external_code="DUA8738179", @name="VAL D'ARGENTEUIL">]
+# Note via @access_time that the Stations are cached
 
 trips = EasyTransilien::Trip.find('val d\'argenteuil', 'paris saint-lazare')
+# => [#<EasyTransilien::Trip …>, #<EasyTransilien::Trip …>…]
+# Note: by default trips are fetch from Time.new to Time.new + 1.hour
 
 # Maybe you want it at a certain time?
 now = Time.new
-trips = EasyTransilien::Trop.find('val d\'arg', 'paris sain', Time.local(now.year, now.month, now.day, 14, 42)) # you can search by fragment, exact match not required.
-
+trips = EasyTransilien::Trip.find('val d\'arg', 'paris sain', Time.local(now.year, now.month, now.day, 14, 42)) # you can search by fragment, exact match not required.
+# => [<EasyTransilien::Trip:70166657121040 @access_time=2013-11-19 13:18:10 +0100 @mission=PACA @from_stop=VAL D'ARGENTEUIL@15:40, @to_stop=PARIS SAINT-LAZARE@15:55>, <EasyTransilien::Trip:70166657847860 @access_time=2013-11-19 13:18:10 +0100 @mission=PUCA @from_stop=VAL D'ARGENTEUIL@15:55, @to_stop=PARIS SAINT-LAZARE@16:10>, <EasyTransilien::Trip:70166663321140 @access_time=2013-11-19 13:18:10 +0100 @mission=POCI @from_stop=VAL D'ARGENTEUIL@16:09, @to_stop=PARIS SAINT-LAZARE@16:24>, <EasyTransilien::Trip:70166662894960 @access_time=2013-11-19 13:18:10 +0100 @mission=PUCA @from_stop=VAL D'ARGENTEUIL@16:25, @to_stop=PARIS SAINT-LAZARE@16:40>]
+# End boundary not given, so it's "from"+1h
 ```
 
+Easy isn't it?
 
 ## Contributing
 
@@ -58,6 +66,6 @@ trips = EasyTransilien::Trop.find('val d\'arg', 'paris sain', Time.local(now.yea
 
 NOTA: you're a beginner gem dev? This command may help you: 
 
-    pry -Ilib -rtransilien_easy_microservices 
+    pry -Ilib -reasy_transilien 
 
 (you can replace pry with irb if you're not a good person…)
