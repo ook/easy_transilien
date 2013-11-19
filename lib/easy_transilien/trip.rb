@@ -77,6 +77,10 @@ module EasyTransilien
       "[#{mission}] #{from_stop} -> #{to_stop}"
     end
 
+    def inspect
+      "<EasyTransilien::Trip:#{object_id} @access_time=#{access_time} @mission=#{mission} @from_stop=#{from_stop}, @to_stop=#{to_stop}>"
+    end
+
     def <=>(another)
       self.from_stop.time <=> another.from_stop.time
     end
