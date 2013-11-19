@@ -1,6 +1,8 @@
-# TransilienMicroservices: EASY!
+# Transilien Microservices made EASY!
 
-Ruby wrapper for transilien_microservices ruby gem: make data easy to get.
+Ruby wrapper for transilien_microservices ruby gem: make data easy to fetch.
+
+The original gem: http://rubygems.org/gems/transilien_microservices
 
 ## Installation
 
@@ -8,7 +10,7 @@ Gem developped with ruby 2.0.0, should work with ruby 1.9.3
 
 Add this line to your application's Gemfile:
 
-    gem 'transilien_easy_microservices'
+    gem 'easy_transilien'
 
 And then execute:
 
@@ -16,9 +18,34 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install transilien_microservices
+    $ gem install easy_transilien
 
 ## Usage
+
+- What do we want?
+
+- Train times!
+
+- How do we want them?
+
+- Easily!
+
+```ruby
+# Transposition from TransilienMicroservices usage examples:
+require 'easy_transilien'
+
+stations = EasyTransilien::Station.find
+val_arg_station = EasyTransilien::Station.find('val d\'argenteuil')
+# => "#<EasyTransilien::Station>"
+val_arg_station = 
+
+trips = EasyTransilien::Trip.find('val d\'argenteuil', 'paris saint-lazare')
+
+# Maybe you want it at a certain time?
+now = Time.new
+trips = EasyTransilien::Trop.find('val d\'arg', 'paris sain', Time.local(now.year, now.month, now.day, 14, 42)) # you can search by fragment, exact match not required.
+
+```
 
 
 ## Contributing

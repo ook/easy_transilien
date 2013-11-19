@@ -13,6 +13,6 @@ describe EasyTransilien::Stop do
     es.ms_stop =  ms_stop
     es.is_a?(EasyTransilien::Stop).should be_true
     es.time.is_a?(Time).should be_true
-    es.time.should eql(Time.local(2013,11,18,14,40))
+    es.time.should eql(Time.local(time.year,time.month,time.day,14,40))
   end
 end
