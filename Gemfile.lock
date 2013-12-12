@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     easy_transilien (0.0.1)
-      transilien_microservices (~> 0.0.3)
+      transilien_microservices (~> 0.0.5)
 
 GEM
   remote: https://rubygems.org/
@@ -55,7 +55,7 @@ GEM
     slop (3.4.6)
     thor (0.18.1)
     timers (1.1.0)
-    transilien_microservices (0.0.3)
+    transilien_microservices (0.0.5)
       faraday (>= 0.8.4)
       nokogiri (>= 1.5.5)
     yard (0.8.7.2)

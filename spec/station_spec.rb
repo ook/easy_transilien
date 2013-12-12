@@ -2,8 +2,6 @@ require 'spec_helper'
 
 describe EasyTransilien::Station do
   it 'should get some Station when searching for argenteuil' do
-    # This payload was generated from
-    # http://ms.api.transilien.com/?action=VehicleJourneyList&RouteExternalCode=DUA8008540420003%3BDUA8008540430008%3BDUA8008540430010%3BDUA8008540430005%3BDUA8008544000030%3BDUA8008540440001|or&Date=2013|10|24&StartTime=18|19&EndTime=18|21
     col = EasyTransilien::Station.find('argenteuil')
     col.is_a?(Array).should be_true
     col.first.is_a?(EasyTransilien::Station).should be_true
@@ -13,5 +11,19 @@ describe EasyTransilien::Station do
     col = EasyTransilien::Station.find
     col.is_a?(Array).should be_true
     (col.length > 0).should be_true
+  end
+
+  it 'should get Line for a Station' do
+    station = EasyTransilien::Station.find('Val d\'Argenteuil').first
+    station.lines.is_a?(Array).should be_true
+    station.lines[0].is_a?(EasyTransilien::Line).should be_true
+  end
+
+  it 'should get line_letters for a Station' do
+    station = EasyTransilien::Station.find('Val d\'Argenteuil').first
+    station.codes.is_a?(Array).should be_true
+    station.codes.length.should eq(1)
+    station.codes[0].is_a?(String).should be_true
+    station.codes[0].should eql('J')
   end
 end

@@ -1,6 +1,7 @@
 module EasyTransilien
   class Station
     attr_accessor :name, :external_code, :access_time
+    attr_accessor :ms_stop_area
 
     class << self
       # Get all available `Transilien::StopArea`
@@ -24,21 +25,43 @@ module EasyTransilien
           return convert_stop_areas_to_stations(matching)
         elsif criterium.is_a?(Station)
           return [criterium]
+        elsif criterium.is_a?(Hash)
+          matching = []
+          if criterium.keys.include?(:line_external_code)
+            all_stop_areas.select { |sa| raise sa.inspect }
+          end
+          return convert_stop_areas_to_stations(matching)
         elsif criterium.nil?
           return convert_stop_areas_to_stations(all_stop_areas)
+        else
+          raise 'WAZZUF?'
         end
       end
 
       def convert_stop_areas_to_stations(stop_areas)
         stop_areas.map do |sa|  
           item = new
-          item.name = sa.name
+          item.name          = sa.name
           item.external_code = sa.external_code
-          item.access_time = sa.access_time
+          item.access_time   = sa.access_time
+          item.ms_stop_area  = sa
           item
         end
       end
 
+    end
+
+    def lines
+      @lines ||= EasyTransilien::Line.find()
+    end
+
+    def codes
+       @codes ||= ms_stop_area.lines.map(&:code)
+    end
+
+    def coord(format = :gps)
+      if format == :gps
+      end
     end
   end
 
