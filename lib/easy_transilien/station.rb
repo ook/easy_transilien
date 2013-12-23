@@ -56,7 +56,7 @@ module EasyTransilien
     end
 
     def codes
-       @codes ||= ms_stop_area.lines.map(&:code)
+       @codes ||= ms_stop_area.lines.map(&:code).flatten.uniq.sort.reject { |c| c.length != 1 } # DEV NOTE lines with more than 1 letter are special lines for "travaux"
     end
 
     def coord(format = :gps)

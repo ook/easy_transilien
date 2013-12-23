@@ -46,7 +46,7 @@ module EasyTransilien
     end
 
     def codes
-      @codes ||= ms_lines.map(&:code).flatten.uniq.sort.reject { |code| code.length > 1 } # DEV NOTE lines with more than 1 letter are special lines for "travaux"
+      @codes ||= ms_lines.map(&:code).flatten.uniq.sort.reject { |code| code.length != 1 } # DEV NOTE lines with more than 1 letter are special lines for "travaux"
     end
 
     def ms_lines
@@ -56,7 +56,7 @@ module EasyTransilien
     end
 
     def stations
-      Transilien::Stop
+      @stations ||= ms_lines.map { |ms_line| ms_line.stop_areas }.uniq
     end
 
   end
