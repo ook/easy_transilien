@@ -56,6 +56,13 @@ trips = EasyTransilien::Trip.find('val d\'arg', 'paris sain', Time.local(now.yea
 
 Easy isn't it?
 
+But you know, they are called Lines.
+
+```ruby
+EasyTransilien::Line.find('J')
+# => [<EasyTransilien... >]
+```
+
 ## Contributing
 
 1. Fork it
