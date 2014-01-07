@@ -13,15 +13,17 @@ describe EasyTransilien::Station do
     (col.length > 0).should be_true
   end
 
-  it 'should get Line for a Station' do
+  it 'should get at least a Line for a Station' do
     station = EasyTransilien::Station.find('Val d\'Argenteuil').first
     station.lines.is_a?(Array).should be_true
+    (station.lines.length > 0).should be_true
     station.lines[0].is_a?(EasyTransilien::Line).should be_true
   end
 
-  it 'should get line_letters for a Station' do
+  it 'should get at least one line_letters for a Station' do
     station = EasyTransilien::Station.find('Val d\'Argenteuil').first
     station.codes.is_a?(Array).should be_true
+    (station.codes.length > 0).should be_true
     station.codes.length.should eq(1)
     station.codes[0].is_a?(String).should be_true
     station.codes[0].should eql('J')
