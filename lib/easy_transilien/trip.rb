@@ -20,7 +20,24 @@ module EasyTransilien
     class << self
       
       # Find 
-      def find(from, to , at = Time.new, last = nil )
+      # Options:
+      # * at (default Time.new)
+      # * last (default at + 3600)
+      # * whole_day: if true, override at and last with respectively 00:01 and 00:00
+      # * return: if true, invert from and to
+      def find(from, to , options= {})
+        at = last = nil
+        if options[:whole_day]
+          now = Time.new
+          at = Time.new(now.year, now.month, now.day, 0, 0, 1)
+          last = at + 86400
+        end
+        if options[:return]
+          from_was = from
+          from = to
+          to = from_was
+        end
+        at ||= Time.new
         raise "at params MUST be a valid Time instance. Given: #{at.inspect}" unless at.is_a?(Time)
         last ||= at + 3600
         raise "last params MUST be a valid Time instance. Given: #{last.inspect}" unless last.is_a?(Time)
@@ -52,8 +69,8 @@ module EasyTransilien
           item.access_time   = journey.access_time
           item.ms_journey       = journey
           item.mission       = journey.name
-          item.start_time    = item.from_stop.ms_stop.arrival_time.time
-          item.arrival_time  = item.to_stop.ms_stop.arrival_time.time
+          item.start_time    = item.from_stop.ms_stop.stop_time.time
+          item.arrival_time  = item.to_stop.ms_stop.stop_time.time
 
           trips << item
 
