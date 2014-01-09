@@ -12,7 +12,7 @@ module EasyTransilien
     attr_accessor :from_station, :to_station, :from_stop, :to_stop, :access_time
     attr_accessor :start_time, :arrival_time
     attr_accessor :mission
-    attr_accessor :journey
+    attr_accessor :ms_journey
 
     attr_accessor :at
     attr_accessor :stops
@@ -50,8 +50,10 @@ module EasyTransilien
           item.to_stop       = item.stops.select { |ts| ts.station_external_code == to_station.external_code   }.first
           next if item.from_stop.nil? || item.to_stop.nil? # drop item if this journey doesn't deserve our from_stop or to_stop
           item.access_time   = journey.access_time
-          item.journey       = journey
+          item.ms_journey       = journey
           item.mission       = journey.name
+          item.start_time    = item.from_stop.ms_stop.arrival_time.time
+          item.arrival_time  = item.to_stop.ms_stop.arrival_time.time
 
           trips << item
 
