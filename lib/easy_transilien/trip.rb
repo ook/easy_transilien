@@ -3,8 +3,8 @@ module EasyTransilien
   # This class give you the differents Train from one point to an other point, on the same Transilien::Route, in the Time boudaries you
   # gave.
   #
-  # The key method id Trip.find(from, to, at, last)
-  # You can let [at] and [last] params empty: in that case [at] will be right now, and [last] will be in 1 hour later than [at]
+  # The key method id Trip.find(from, to, options)
+  # You can let options[at] and options[last] params empty: in that case [at] will be right now, and [last] will be in 1 hour later than [at]
   #
   # A trip is the EasyTransilien representation from Transilien::VehicleJourney
   class Trip
@@ -90,6 +90,10 @@ module EasyTransilien
 
     def to_station_name
       to_station.name
+    end
+
+    def line_code
+      ms_journey.route.line.code
     end
 
     def to_s
