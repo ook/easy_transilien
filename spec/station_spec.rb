@@ -24,7 +24,6 @@ describe EasyTransilien::Station do
     station = EasyTransilien::Station.find('Val d\'Argenteuil').first
     station.codes.is_a?(Array).should be_true
     (station.codes.length > 0).should be_true
-    station.codes.length.should eq(1)
     station.codes[0].is_a?(String).should be_true
     station.codes[0].should eql('J')
   end
