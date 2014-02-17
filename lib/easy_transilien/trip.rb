@@ -14,7 +14,7 @@ module EasyTransilien
     attr_accessor :mission
     attr_accessor :ms_journey
 
-    attr_accessor :at
+    attr_accessor :at, :last # boundaries given via #find options
     attr_accessor :stops
 
     class << self
@@ -22,15 +22,20 @@ module EasyTransilien
       # Find 
       # Options:
       # * at (default Time.new)
-      # * last (default at + 3600)
+      # * last (default at + default_duration(3600))
       # * whole_day: if true, override at and last with respectively 00:01 and 00:00
       # * return: if true, invert from and to
       def find(from, to , options= {})
         at = last = nil
+        default_duration = 3600
         if options[:whole_day]
           now = Time.new
           at = Time.new(now.year, now.month, now.day, 0, 0, 1)
           last = at + 86400
+        elsif options[:at] && options[:at].is_a?(Time)
+          at = options[:at]
+          last = options[:last] if options[:last] && options[:last].is_a?(Time)
+          last ||= at + default_duration
         end
         if options[:return]
           from_was = from
@@ -39,8 +44,15 @@ module EasyTransilien
         end
         at ||= Time.new
         raise "at params MUST be a valid Time instance. Given: #{at.inspect}" unless at.is_a?(Time)
-        last ||= at + 3600
+        last ||= at + default_duration
         raise "last params MUST be a valid Time instance. Given: #{last.inspect}" unless last.is_a?(Time)
+
+        # auto sort the mess… Yes, I'm very kind to these people
+        if at > last
+          aat = at
+          at = last
+          last = aat
+        end
 
         from_station = Station.find(from).first
         to_station   = Station.find(to).first
@@ -56,6 +68,7 @@ module EasyTransilien
         journeys.each do |journey|
           item = new
           item.at            = at
+          item.last          = last
           item.from_station  = from_station
           item.to_station    = to_station
           item.stops         = journey.stops.map do |ms_stop|

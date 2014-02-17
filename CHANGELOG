@@ -1,0 +1,5 @@
+0.0.5:
+  * Handle options[:at] and options[:last] as promise by the doc
+  * Add Trip#last to be consitant
+  * Trip#find auto correct when at is after last
+  * TripSpec
