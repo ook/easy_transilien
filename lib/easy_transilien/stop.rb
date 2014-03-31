@@ -32,7 +32,10 @@ module EasyTransilien
       now = Time.new
       year  =  access_time && access_time.year  || now.year
       month =  access_time && access_time.month || now.month
-      day   = (access_time && access_time.day   || now.day) + stop_time.day.to_i
+      day   = (access_time && access_time.day   || now.day) 
+      this_month_days_count = Date.new(now.year, now.month, -1).day
+      return  Time.local(year + 1, 1, 1, stop_time.hour, stop_time.minute) if stop_time.day.to_i == 1 && month == 12 && day == this_month_days_count
+      return  Time.local(year, month + 1, 1, stop_time.hour, stop_time.minute) if stop_time.day.to_i == 1 && this_month_days_count == now.day
       Time.local(year, month, day, stop_time.hour, stop_time.minute)
     end
 

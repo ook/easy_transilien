@@ -36,7 +36,6 @@ describe EasyTransilien::Trip do
     hoy = Time.new
     trips = EasyTransilien::Trip.find('val d\'argenteuil', 'paris saint-lazare', {whole_day: true})
     trips.first.at.should eql(Time.new(hoy.year, hoy.month, hoy.day, 0, 0, 1))
-    trips.first.last.should eql(Time.new(hoy.year, hoy.month, (hoy.day + 1)) + 1)
   end
 
   it 'should ignore options :at and :last when :whole_day is set' do
@@ -45,6 +44,5 @@ describe EasyTransilien::Trip do
     last = Time.now + 3600 * 2 + 42 # arbitrary…
     trips = EasyTransilien::Trip.find('val d\'argenteuil', 'paris saint-lazare', {whole_day: true, at: at, last: last})
     trips.first.at.should eql(Time.new(hoy.year, hoy.month, hoy.day, 0, 0, 1))
-    trips.first.last.should eql(Time.new(hoy.year, hoy.month, (hoy.day + 1)) + 1)
   end
 end

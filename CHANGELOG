@@ -1,3 +1,6 @@
+0.0.8
+  * Apply Time boundaries management in Stop#time, like in transilien_microservices
+
 0.0.7
   * bump transilien_microservices v0.0.7
 
