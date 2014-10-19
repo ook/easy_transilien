@@ -4,6 +4,8 @@ Ruby wrapper for transilien_microservices ruby gem: make data easy to fetch.
 
 The original gem: http://rubygems.org/gems/transilien_microservices
 
+[![Build Status](https://travis-ci.org/ook/easy_transilien.svg?branch=master)](https://travis-ci.org/ook/easy_transilien)
+
 ## Installation
 
 Gem developped with ruby 2.0.0, should work with ruby 1.9.3
