@@ -1,3 +1,6 @@
+0.0.9
+  * For some unknown reason, specs failed on 2.0.0-p247 w/o module explicit prefix
+
 0.0.8
   * Apply Time boundaries management in Stop#time, like in transilien_microservices
 
