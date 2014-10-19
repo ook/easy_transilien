@@ -54,8 +54,8 @@ module EasyTransilien
           last = aat
         end
 
-        from_station = Station.find(from).first
-        to_station   = Station.find(to).first
+        from_station = EasyTransilien::Station.find(from).first
+        to_station   = EasyTransilien::Station.find(to).first
 
         raise "Can't find a Station from #{from.inspect}" unless from_station
         raise "Can't find a Station from #{to.inspect}"   unless to_station
@@ -80,7 +80,7 @@ module EasyTransilien
           item.to_stop       = item.stops.select { |ts| ts.station_external_code == to_station.external_code   }.first
           next if item.from_stop.nil? || item.to_stop.nil? # drop item if this journey doesn't deserve our from_stop or to_stop
           item.access_time   = journey.access_time
-          item.ms_journey       = journey
+          item.ms_journey    = journey
           item.mission       = journey.name
           item.start_time    = item.from_stop.ms_stop.stop_time.time
           item.arrival_time  = item.to_stop.ms_stop.stop_time.time
