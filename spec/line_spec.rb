@@ -5,12 +5,12 @@ describe EasyTransilien::Line do
     @line = EasyTransilien::Line.find('laz').first
   end
 
-  it 'should get some Line when searching for laz' do
-    @line.is_a?(EasyTransilien::Line).should be_true
+  it 'expect get some Line when searching for laz' do
+    expect(@line.is_a?(EasyTransilien::Line)).to be_truthy
   end
 
-  it 'should have at least one codes' do
-    @line.codes.is_a?(Array).should be_true
-    @line.codes.empty?.should be_false
+  it 'expect have at least one codes' do
+    expect(@line.codes.is_a?(Array)).to be_truthy
+    expect(@line.codes.empty?).to be_falsey
   end
 end

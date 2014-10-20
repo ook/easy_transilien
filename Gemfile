@@ -5,6 +5,7 @@ gemspec
 
 # Dev only
 group :test do
+  gem 'rake'
   gem 'rspec'
   gem 'guard-rspec'
   gem 'pry'

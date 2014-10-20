@@ -5,14 +5,14 @@ MS_STOP_PAYLOAD = "<Stop StopIdx=\"3856503\" StopPointIdx=\"37162\" VehicleJourn
 Noko_Payload = Nokogiri.XML(MS_STOP_PAYLOAD)
 
 describe EasyTransilien::Stop do
-  it 'should get valid #time from ms_stop' do
+  it 'expect get valid #time from ms_stop' do
     time = Time.new
     ms_stop = Transilien::Stop.from_node(Noko_Payload, time)
 
     es = EasyTransilien::Stop.new
     es.ms_stop =  ms_stop
-    es.is_a?(EasyTransilien::Stop).should be_true
-    es.time.is_a?(Time).should be_true
-    es.time.should eql(Time.local(time.year,time.month,time.day,14,40))
+    expect(es.is_a?(EasyTransilien::Stop)).to be_truthy
+    expect(es.time.is_a?(Time)).to be_truthy
+    expect(es.time).to eql(Time.local(time.year,time.month,time.day,14,40))
   end
 end
