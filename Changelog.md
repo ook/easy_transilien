@@ -1,3 +1,6 @@
+1.0.0
+  * Upgrade gem to use transilien_microservice 1.0.0. Now we're on semver, will be easier for fixes.
+
 0.0.9
   * For some unknown reason, specs failed on 2.0.0-p247 w/o module explicit prefix
 
