@@ -8,7 +8,7 @@ The original gem: http://rubygems.org/gems/transilien_microservices
 
 ## Installation
 
-Gem developped and maintened against rubies from 1.9 to 2.1.
+Gem developped and maintened against rubies from 1.9 to 2.5.
 Remember: ruby 1.8 died in mid-2013, not necessary to lost time on it.
 
 Add this line to your application's Gemfile:

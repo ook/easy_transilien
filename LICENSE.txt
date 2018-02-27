@@ -1,4 +1,4 @@
-Copyright (c) 2013 Thomas Lecavelier
+Copyright (c) 2013-2018 Thomas Lecavelier
 
 MIT License
 

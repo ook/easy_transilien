@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.homepage      = "https://github.com/ook/easy_transilien"
   gem.license       = 'MIT'
 
-  gem.add_runtime_dependency('transilien_microservices',  '~> 1.0') # Hey, it's a wrapper, so we must wrap it ;)
+  gem.add_runtime_dependency('transilien_microservices',  '~> 1.1') # Hey, it's a wrapper, so we must wrap it ;)
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
